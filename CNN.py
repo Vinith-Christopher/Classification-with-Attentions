@@ -3,6 +3,14 @@ from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
 from keras import Input, Model
 
 def CNN_Model(xtrain, ytrain):
+    """
+    Args:
+        xtrain: image array with 4 dimension input
+        ytrain: labels of corresponding images with 2 dimension input
+
+    Returns:
+        keras functional model
+    """
     # functional model 
     # Input layer
     Input_layer = Input(shape=(xtrain.shape[1], xtrain.shape[2], xtrain.shape[3]))
