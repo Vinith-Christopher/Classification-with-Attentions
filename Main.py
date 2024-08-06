@@ -6,7 +6,7 @@ import os
 import cv2
 from sklearn.preprocessing import LabelEncoder
 from termcolor import cprint
-
+from tensorflow import keras
 
 # dataset from my folder
 path = 'DATASET/natural_images'
@@ -30,10 +30,18 @@ for folder in os.listdir(path):
 
 x = np.array(Images)
 encoder = LabelEncoder()
-y = encoder.fit_transform(labels)
+y = encoder.fit_transform(labels) # encoding the labels
 
 print(x.shape)
 print(y.shape)
 
+# spliting the data with 80% for training and remainng 20% for testing
+split = int(x.shape[0] * 0.8)
+xtrain, xtest = x[:split], x[split:]
+ytrain, ytest = y[:split], y[split:]
+
+# categorical labels for computation
+ytrain = keras.utils.to_categorical(ytrain)
+ytest = keras.utils.to_categorical(ytest)
 
 
