@@ -7,6 +7,7 @@ import cv2
 from sklearn.preprocessing import LabelEncoder
 from termcolor import cprint
 from tensorflow import keras
+from CNN import CNN_Model
 
 # dataset from my folder
 path = 'DATASET/natural_images'
@@ -43,5 +44,15 @@ ytrain, ytest = y[:split], y[split:]
 # categorical labels for computation
 ytrain = keras.utils.to_categorical(ytrain)
 ytest = keras.utils.to_categorical(ytest)
+
+model =CNN_Model(xtrain, ytrain)  # build the model
+model.compile(optimizer='adam', loss='CategoricalCrossentropy')  # compile
+# training
+model.fit(xtrain, ytrain, epochs=100)
+# save the trained model
+# using this trained model we can do prediction on test data for evaluting performmance in future
+model.save('CNN_model.h5')
+
+
 
 
